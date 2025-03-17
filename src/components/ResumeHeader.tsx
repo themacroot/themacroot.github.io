@@ -42,7 +42,7 @@ const ResumeHeader: React.FC<ResumeHeaderProps> = ({ className }) => {
               </div>
               <div className="flex items-center gap-2">
                 <Phone size={16} className="opacity-70 text-primary" />
-                <span>+91-7736698003</span>
+                <span>+91-7012302315</span>
               </div>
               <div className="flex items-center gap-2">
                 <Mail size={16} className="opacity-70 text-primary" />
