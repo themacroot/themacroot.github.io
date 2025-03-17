@@ -15,7 +15,7 @@ const SkillBadge: React.FC<SkillBadgeProps> = ({ children, className, index }) =
     <div 
       className={cn(
         'px-3 py-1.5 rounded-full text-secondary-foreground font-medium text-sm opacity-0 animate-fadeIn transition-all duration-300 cursor-pointer',
-        isHovered ? 'bg-primary text-primary-foreground scale-110' : 'bg-secondary',
+        isHovered ? 'bg-blue-500 text-white scale-110' : 'bg-blue-100/80 text-blue-900/90',
         className
       )}
       style={{ animationDelay: `${200 + index * 50}ms` }}

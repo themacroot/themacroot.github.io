@@ -1,4 +1,3 @@
-
 import React, { useEffect } from 'react';
 import ResumeLayout from '@/components/ResumeLayout';
 import ResumeHeader from '@/components/ResumeHeader';
@@ -12,7 +11,6 @@ import { Separator } from '@/components/ui/separator';
 
 const Index = () => {
   useEffect(() => {
-    // Smooth scrolling behavior
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function (e) {
         e.preventDefault();
@@ -144,8 +142,64 @@ const Index = () => {
           />
 
           <ProjectCard
-            title="Digital Banking Unit"
+            title="SIB Swift e"
             index={2}
+            description={
+              <ul className="list-disc pl-5 space-y-2">
+                <li>Designed and built a BPM mobile app for SIB Staff to streamline customer onboarding and management.</li>
+                <li>Responsibilities included architecture, UI/UX design, server configuration, WAF integration, middleware development using Spring Boot and Spring Security, and backend implementation in Oracle.</li>
+                <li>Integrated third-party services such as UIDAI and NSDL and contributed to the VAPT of the application.</li>
+              </ul>
+            }
+          />
+
+          <ProjectCard
+            title="REST API Middleware - Design and Development"
+            index={3}
+            description={
+              <ul className="list-disc pl-5 space-y-2">
+                <li>Led the development of 40+ REST API interfaces in JAVA JAX-RS, integrating services like Finacle, ATM Switches, NSDL, and UIDAI.</li>
+                <li>Key APIs cover PAN AADHAR Validation, ATM Card Management, and Middleware for Finacle ISO 8583 Interfaces, including account statements, IMPS, and NEFT transactions.</li>
+              </ul>
+            }
+          />
+
+          <ProjectCard
+            title="SIB Insta - Web app development and PG Integration"
+            index={4}
+            description={
+              <p>
+                Developed the frontend of an instant customer onboarding web app for South Indian Bank, integrating services like UIDAI, NSDL, Finacle, CRM, and BPM.
+              </p>
+            }
+          />
+
+          <ProjectCard
+            title="SMS Solution"
+            index={5}
+            description={
+              <ul className="list-disc pl-5 space-y-2">
+                <li>Created and optimized database procedures, functions, and triggers to fulfill diverse outgoing and incoming SMS needs.</li>
+                <li>Oversaw the maintenance and optimization of a middleware application operating on event streaming architecture.</li>
+                <li>Managed vendors, ensuring adherence to SLAs and POs, as well as overseeing NOC operations across multiple countries and the management of DLT platforms (headers and content).</li>
+                <li>Additionally, conducted infrastructure monitoring and maintenance tasks.</li>
+              </ul>
+            }
+          />
+
+          <ProjectCard
+            title="Covid Care - A Vaccination Finder Web App"
+            index={6}
+            description={
+              <p>
+                Developed front end using Angular 9. Material Design components are used. Integrated Cowin API's exposed by API Setu. Firebase is integrated for analytics.
+              </p>
+            }
+          />
+
+          <ProjectCard
+            title="Digital Banking Unit"
+            index={7}
             description={
               <ul className="list-disc pl-5 space-y-2">
                 <li>Crafted a WPF.NET application utilizing Visual C# for deployment on digital banking kiosks for South Indian Bank.</li>
@@ -156,7 +210,7 @@ const Index = () => {
 
           <ProjectCard
             title="SIB Mirror+: Official Mobile Banking App of SIB"
-            index={3}
+            index={8}
             description={
               <p>
                 As part of the team, successfully migrated Mirror Plus to a new platform. Oversaw the entire development lifecycle, including architecture, customer migration, vendor management, compliance, testing, and system integrations. Managed analytics, messaging, and testing tools. Technology stack included Java, Objective C, and Oracle.
@@ -165,12 +219,19 @@ const Index = () => {
           />
 
           <ProjectCard
-            title="REST API Middleware - Design and Development"
-            index={4}
+            title="Other Notable Projects"
+            index={9}
             description={
-              <p>
-                Leading the development of 40+ REST API interfaces in JAVA JAX-RS, integrating services like Finacle, ATM Switches, NSDL, and UIDAI. Key APIs cover PAN AADHAR Validation, ATM Card Management, and Middleware for Finacle ISO 8583 Interfaces, including account statements, IMPS, and NEFT transactions.
-              </p>
+              <ul className="list-disc pl-5 space-y-2">
+                <li>Creating internal portals and APIs tailored to SIB's specifications.</li>
+                <li>Integrating RASP solutions.</li>
+                <li>Developing SIB aide, a chatbot leveraging OPENAI APIs to address regulatory inquiries.</li>
+                <li>Collaborating with RBI on a DLT Proof of Concept for document management.</li>
+                <li>Establishing backend API services and databases using Node.js and MongoDB to log interactions with customers on the bank's WhatsApp handle, facilitating WhatsApp Banking.</li>
+                <li>Driving the integration of a new FRM solution into mobile banking.</li>
+                <li>Setting up APM for Mirrorplus.</li>
+                <li>Identifying bottlenecks in various other applications of the bank and providing solutions.</li>
+              </ul>
             }
           />
         </div>
