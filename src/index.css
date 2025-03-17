@@ -7,33 +7,33 @@
 
 @layer base {
   :root {
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
+    --background: 215 30% 12%;
+    --foreground: 210 40% 98%;
     
-    --card: 240 10% 3.9%;
-    --card-foreground: 0 0% 98%;
+    --card: 215 28% 17%;
+    --card-foreground: 210 40% 98%;
     
-    --popover: 240 10% 3.9%;
-    --popover-foreground: 0 0% 98%;
+    --popover: 215 28% 17%;
+    --popover-foreground: 210 40% 98%;
     
-    --primary: 270 75% 60%;
-    --primary-foreground: 0 0% 98%;
+    --primary: 210 100% 50%;
+    --primary-foreground: 210 40% 98%;
     
-    --secondary: 240 3.7% 15.9%;
-    --secondary-foreground: 0 0% 98%;
+    --secondary: 215 25% 27%;
+    --secondary-foreground: 210 40% 98%;
     
-    --muted: 240 3.7% 15.9%;
-    --muted-foreground: 240 5% 64.9%;
+    --muted: 215 25% 27%;
+    --muted-foreground: 215 20% 65%;
     
-    --accent: 270 75% 60%;
-    --accent-foreground: 0 0% 98%;
+    --accent: 210 100% 50%;
+    --accent-foreground: 210 40% 98%;
     
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
     
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
-    --ring: 270 75% 60%;
+    --border: 215 25% 27%;
+    --input: 215 25% 27%;
+    --ring: 210 100% 50%;
     --radius: 0.5rem;
   }
 }
@@ -100,7 +100,7 @@
   }
   
   .dot-pattern {
-    background-image: radial-gradient(circle, rgba(155, 135, 245, 0.15) 1px, transparent 1px);
+    background-image: radial-gradient(circle, rgba(14, 165, 233, 0.15) 1px, transparent 1px);
     background-size: 20px 20px;
   }
   
@@ -117,7 +117,7 @@
   }
 
   .purple-glow {
-    text-shadow: 0 0 10px rgba(155, 135, 245, 0.5);
+    text-shadow: 0 0 10px rgba(14, 165, 233, 0.5);
   }
 
   .split-layout {
@@ -129,7 +129,7 @@
   }
 
   .right-panel {
-    @apply w-full md:w-2/3 bg-[#1A1F2C] p-6 md:p-12 overflow-y-auto;
+    @apply w-full md:w-2/3 bg-[#1A2534] p-6 md:p-12 overflow-y-auto;
   }
 
   .service-box {
@@ -153,8 +153,7 @@
 }
 
 .animated-gradient {
-  background: linear-gradient(-45deg, #9b87f5, #6e59a5, #9b87f5);
+  background: linear-gradient(-45deg, #0ea5e9, #0369a1, #0ea5e9);
   background-size: 400% 400%;
   animation: gradient-animation 15s ease infinite;
 }
-

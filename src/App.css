@@ -12,18 +12,18 @@
 }
 
 .gradient-bg {
-  background: linear-gradient(-45deg, #1a1f2c, #222, #1a1f2c);
+  background: linear-gradient(-45deg, #1A2534, #222, #1A2534);
   background-size: 400% 400%;
   animation: gradient 15s ease infinite;
 }
 
 .card-hover:hover {
-  box-shadow: 0 0 15px rgba(155, 135, 245, 0.3);
+  box-shadow: 0 0 15px rgba(14, 165, 233, 0.3);
   transform: translateY(-5px);
 }
 
-.purple-filter {
-  filter: drop-shadow(0 0 5px rgba(155, 135, 245, 0.5));
+.blue-filter {
+  filter: drop-shadow(0 0 5px rgba(14, 165, 233, 0.5));
 }
 
 body {
@@ -35,18 +35,18 @@ body::-webkit-scrollbar {
 }
 
 body::-webkit-scrollbar-track {
-  background: #1a1f2c;
+  background: #1A2534;
 }
 
 body::-webkit-scrollbar-thumb {
-  background: #9b87f5;
+  background: #0ea5e9;
   border-radius: 5px;
 }
 
 body::-webkit-scrollbar-thumb:hover {
-  background: #7e69ab;
+  background: #0369a1;
 }
 
 .text-shadow {
-  text-shadow: 0 0 10px rgba(155, 135, 245, 0.5);
+  text-shadow: 0 0 10px rgba(14, 165, 233, 0.5);
 }
