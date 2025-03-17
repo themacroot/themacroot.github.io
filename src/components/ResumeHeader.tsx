@@ -46,7 +46,7 @@ const ResumeHeader: React.FC<ResumeHeaderProps> = ({ className }) => {
               </div>
               <div className="flex items-center gap-2">
                 <Mail size={16} className="opacity-70 text-primary" />
-                <span>sreekanth.narendran.93@gmail.com</span>
+                <span>me@srina.dev</span>
               </div>
             </div>
           </div>
