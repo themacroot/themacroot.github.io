@@ -1,6 +1,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
+import { Menu, User, Phone, Briefcase, Code, Shield, BookOpen, Award, ChevronRight } from 'lucide-react';
 
 interface ResumeLayoutProps {
   children: React.ReactNode;
@@ -8,35 +9,69 @@ interface ResumeLayoutProps {
 }
 
 const ResumeLayout: React.FC<ResumeLayoutProps> = ({ children, className }) => {
-  const [scrollY, setScrollY] = useState(0);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrollY(window.scrollY);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  const [activeSection, setActiveSection] = useState<string>('about');
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
+  
+  const scrollToSection = (id: string) => {
+    setActiveSection(id);
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+    setIsMobileMenuOpen(false);
+  };
 
   return (
-    <div className={cn('min-h-screen overflow-hidden', className)}>
-      <div 
-        className="fixed inset-0 bg-gradient-to-br from-blue-50 via-blue-100 to-indigo-100 -z-10"
-        style={{ 
-          backgroundPosition: `0px ${scrollY * 0.1}px` 
-        }}
-      />
-      <div className="absolute inset-0 dot-pattern opacity-20 pointer-events-none -z-10" />
+    <div className={cn('min-h-screen bg-background', className)}>
+      {/* Mobile Menu Toggle */}
+      <div className="md:hidden fixed top-4 left-4 z-50">
+        <button 
+          className="bg-primary/80 p-2 rounded-full"
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+        >
+          <Menu className="text-white" />
+        </button>
+      </div>
+
+      {/* Mobile Menu */}
+      <div className={`fixed inset-0 bg-black/90 z-40 transform transition-all duration-300 ${
+        isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
+      } md:hidden`}>
+        <div className="flex flex-col items-center justify-center h-full space-y-6">
+          <button onClick={() => scrollToSection('about')} className="text-white hover:text-primary text-xl">About</button>
+          <button onClick={() => scrollToSection('experience')} className="text-white hover:text-primary text-xl">Experience</button>
+          <button onClick={() => scrollToSection('projects')} className="text-white hover:text-primary text-xl">Projects</button>
+          <button onClick={() => scrollToSection('skills')} className="text-white hover:text-primary text-xl">Skills</button>
+          <button onClick={() => scrollToSection('education')} className="text-white hover:text-primary text-xl">Education</button>
+          <button onClick={() => scrollToSection('awards')} className="text-white hover:text-primary text-xl">Awards</button>
+        </div>
+      </div>
+
+      {/* Desktop Sidebar */}
+      <div className="sidebar hidden md:flex">
+        <button onClick={() => scrollToSection('about')} className={`sidebar-icon ${activeSection === 'about' ? 'text-primary' : ''}`}>
+          <User size={20} />
+        </button>
+        <button onClick={() => scrollToSection('experience')} className={`sidebar-icon ${activeSection === 'experience' ? 'text-primary' : ''}`}>
+          <Briefcase size={20} />
+        </button>
+        <button onClick={() => scrollToSection('projects')} className={`sidebar-icon ${activeSection === 'projects' ? 'text-primary' : ''}`}>
+          <Code size={20} />
+        </button>
+        <button onClick={() => scrollToSection('skills')} className={`sidebar-icon ${activeSection === 'skills' ? 'text-primary' : ''}`}>
+          <Shield size={20} />
+        </button>
+        <button onClick={() => scrollToSection('education')} className={`sidebar-icon ${activeSection === 'education' ? 'text-primary' : ''}`}>
+          <BookOpen size={20} />
+        </button>
+        <button onClick={() => scrollToSection('awards')} className={`sidebar-icon ${activeSection === 'awards' ? 'text-primary' : ''}`}>
+          <Award size={20} />
+        </button>
+      </div>
       
-      {/* Floating shapes for visual interest */}
-      <div className="fixed top-1/4 left-10 w-64 h-64 rounded-full bg-blue-500/5 blur-3xl animate-float -z-10"></div>
-      <div className="fixed bottom-1/4 right-10 w-96 h-96 rounded-full bg-indigo-500/10 blur-3xl animate-float animation-delay-1000 -z-10"></div>
-      <div className="fixed top-2/3 left-1/3 w-80 h-80 rounded-full bg-sky-300/5 blur-2xl animate-float animation-delay-500 -z-10"></div>
-      
-      <main className="container mx-auto px-6 py-12 md:py-20 max-w-7xl relative">
+      <div className="container mx-auto px-4 py-8 max-w-7xl relative">
         {children}
-      </main>
+      </div>
     </div>
   );
 };

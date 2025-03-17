@@ -1,3 +1,4 @@
+
 import React, { useEffect } from 'react';
 import ResumeLayout from '@/components/ResumeLayout';
 import ResumeHeader from '@/components/ResumeHeader';
@@ -45,12 +46,11 @@ const Index = () => {
     <ResumeLayout>
       <ResumeHeader />
 
-      <Separator className="opacity-0 animate-fadeIn animate-delay-500" />
-
       <Section 
         id="experience" 
         title="Experience" 
         subtitle="My professional journey in software development and architecture."
+        className="bg-background"
       >
         <div className="grid grid-cols-1 gap-8">
           <ExperienceCard
@@ -105,12 +105,13 @@ const Index = () => {
         </div>
       </Section>
 
-      <Separator />
+      <Separator className="my-16 opacity-10" />
 
       <Section 
         id="projects" 
         title="Projects" 
         subtitle="Key projects I've worked on throughout my career."
+        className="bg-background"
       >
         <div className="grid grid-cols-1 gap-8">
           <ProjectCard
@@ -237,7 +238,7 @@ const Index = () => {
         </div>
       </Section>
 
-      <Separator />
+      <Separator className="my-16 opacity-10" />
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16">
         <Section 
@@ -299,12 +300,13 @@ const Index = () => {
         </Section>
       </div>
 
-      <Separator />
+      <Separator className="my-16 opacity-10" />
 
       <Section 
         id="skills" 
         title="Skills & Technologies" 
         subtitle="My technical and personal competencies."
+        className="pb-24"
       >
         <div className="space-y-8">
           <div>
