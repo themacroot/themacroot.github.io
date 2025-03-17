@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Mail, Phone, MapPin } from 'lucide-react';
+import { Mail, Phone, MapPin, Code, Shield } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface ResumeHeaderProps {
