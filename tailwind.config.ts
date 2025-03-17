@@ -110,6 +110,14 @@ export default {
 				shimmer: {
 					'0%': { backgroundPosition: '-1000px 0' },
 					'100%': { backgroundPosition: '1000px 0' }
+				},
+				tilt: {
+					'0%, 100%': { transform: 'rotate(-1deg)' },
+					'50%': { transform: 'rotate(1deg)' }
+				},
+				blob: {
+					'0%, 100%': { borderRadius: '60% 40% 30% 70% / 60% 30% 70% 40%' },
+					'50%': { borderRadius: '30% 60% 70% 40% / 50% 60% 30% 60%' }
 				}
 			},
 			animation: {
@@ -119,7 +127,9 @@ export default {
 				slideIn: 'slideIn 0.5s ease-out forwards',
 				pulse: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
 				float: 'float 3s ease-in-out infinite',
-				shimmer: 'shimmer 2s linear infinite'
+				shimmer: 'shimmer 2s linear infinite',
+				tilt: 'tilt 10s ease-in-out infinite',
+				blob: 'blob 8s ease-in-out infinite'
 			},
 			backgroundImage: {
 				'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
