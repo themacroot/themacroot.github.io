@@ -22,18 +22,18 @@ const Index = () => {
 
       <ExperienceSection />
 
-      <Separator className="my-16 opacity-10" />
+      <Separator className="my-8 sm:my-12 md:my-16 opacity-10" />
 
       <ProjectsSection />
 
-      <Separator className="my-16 opacity-10" />
+      <Separator className="my-8 sm:my-12 md:my-16 opacity-10" />
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 md:gap-10 lg:gap-16">
         <EducationSection />
         <AwardsSection />
       </div>
 
-      <Separator className="my-16 opacity-10" />
+      <Separator className="my-8 sm:my-12 md:my-16 opacity-10" />
 
       <SkillsSection />
     </ResumeLayout>
