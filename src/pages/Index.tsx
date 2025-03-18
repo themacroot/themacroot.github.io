@@ -9,12 +9,15 @@ import EducationSection from './IndexSections/EducationSection';
 import AwardsSection from './IndexSections/AwardsSection';
 import SkillsSection from './IndexSections/SkillsSection';
 import useSmoothScrolling from './IndexSections/SmoothScrolling';
+import TechOrbitSection from './IndexSections/TechOrbitSection';
 
 const Index = () => {
   useSmoothScrolling();
 
   return (
     <ResumeLayout>
+      <TechOrbitSection />
+      
       <ResumeHeader />
 
       <ExperienceSection />

@@ -238,3 +238,134 @@ body::-webkit-scrollbar-thumb:hover {
 .binary-bg {
   background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2300ff41' fill-opacity='0.05'%3E%3Cpath d='M8 16c4.418 0 8-3.582 8-8s-3.582-8-8-8-8 3.582-8 8 3.582 8 8 8zm24-8c0 4.418 3.582 8 8 8s8-3.582 8-8-3.582-8-8-8-8 3.582-8 8zM8 24c-4.418 0-8 3.582-8 8s3.582 8 8 8 8-3.582 8-8-3.582-8-8-8z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
 }
+
+/* Tech Orbit Section Styles */
+.stars-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.star {
+  position: absolute;
+  background-color: #fff;
+  border-radius: 50%;
+  animation: twinkle 5s infinite;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.2; }
+  50% { opacity: 1; }
+}
+
+.animate-spin {
+  animation: spin 20s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-blink {
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.scanner {
+  width: 80px;
+  height: 4px;
+  background-color: #00ff41;
+  border-radius: 2px;
+  box-shadow: 0 0 8px #00ff41;
+  animation: scanner 2s infinite;
+  margin: 0 auto;
+}
+
+@keyframes scanner {
+  0% { transform: translateY(-10px); opacity: 0.2; }
+  50% { transform: translateY(10px); opacity: 1; }
+  100% { transform: translateY(-10px); opacity: 0.2; }
+}
+
+.glitch-container {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+}
+
+.glitch-container::before,
+.glitch-container::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.glitch-container::before {
+  left: 2px;
+  text-shadow: -2px 0 #ff00c8;
+  clip: rect(44px, 450px, 56px, 0);
+  animation: glitch-anim 5s infinite linear alternate-reverse;
+}
+
+.glitch-container::after {
+  left: -2px;
+  text-shadow: -2px 0 #00ff41;
+  clip: rect(44px, 450px, 56px, 0);
+  animation: glitch-anim2 5s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-anim {
+  0% { clip: rect(6px, 9999px, 4px, 0); }
+  5% { clip: rect(90px, 9999px, 76px, 0); }
+  10% { clip: rect(76px, 9999px, 28px, 0); }
+  15% { clip: rect(74px, 9999px, 42px, 0); }
+  20% { clip: rect(89px, 9999px, 92px, 0); }
+  25% { clip: rect(3px, 9999px, 17px, 0); }
+  30% { clip: rect(34px, 9999px, 71px, 0); }
+  35% { clip: rect(71px, 9999px, 35px, 0); }
+  40% { clip: rect(1px, 9999px, 46px, 0); }
+  45% { clip: rect(31px, 9999px, 46px, 0); }
+  50% { clip: rect(66px, 9999px, 30px, 0); }
+  55% { clip: rect(84px, 9999px, 97px, 0); }
+  60% { clip: rect(26px, 9999px, 31px, 0); }
+  65% { clip: rect(33px, 9999px, 46px, 0); }
+  70% { clip: rect(1px, 9999px, 56px, 0); }
+  75% { clip: rect(77px, 9999px, 35px, 0); }
+  80% { clip: rect(54px, 9999px, 86px, 0); }
+  85% { clip: rect(56px, 9999px, 82px, 0); }
+  90% { clip: rect(35px, 9999px, 40px, 0); }
+  95% { clip: rect(23px, 9999px, 85px, 0); }
+  100% { clip: rect(42px, 9999px, 78px, 0); }
+}
+
+@keyframes glitch-anim2 {
+  0% { clip: rect(25px, 9999px, 23px, 0); }
+  5% { clip: rect(67px, 9999px, 49px, 0); }
+  10% { clip: rect(87px, 9999px, 69px, 0); }
+  15% { clip: rect(48px, 9999px, 42px, 0); }
+  20% { clip: rect(67px, 9999px, 78px, 0); }
+  25% { clip: rect(42px, 9999px, 79px, 0); }
+  30% { clip: rect(68px, 9999px, 80px, 0); }
+  35% { clip: rect(56px, 9999px, 32px, 0); }
+  40% { clip: rect(44px, 9999px, 78px, 0); }
+  45% { clip: rect(12px, 9999px, 56px, 0); }
+  50% { clip: rect(70px, 9999px, 46px, 0); }
+  55% { clip: rect(23px, 9999px, 62px, 0); }
+  60% { clip: rect(73px, 9999px, 79px, 0); }
+  65% { clip: rect(59px, 9999px, 90px, 0); }
+  70% { clip: rect(19px, 9999px, 22px, 0); }
+  75% { clip: rect(54px, 9999px, 10px, 0); }
+  80% { clip: rect(37px, 9999px, 98px, 0); }
+  85% { clip: rect(19px, 9999px, 91px, 0); }
+  90% { clip: rect(94px, 9999px, 52px, 0); }
+  95% { clip: rect(10px, 9999px, 98px, 0); }
+  100% { clip: rect(87px, 9999px, 44px, 0); }
+}
