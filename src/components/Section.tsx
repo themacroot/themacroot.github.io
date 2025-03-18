@@ -44,13 +44,13 @@ const Section: React.FC<SectionProps> = ({ id, title, subtitle, children, classN
       )}
     >
       <div className="mb-10">
-        <h2 className="text-3xl md:text-4xl font-display mb-2 relative inline-block">
+        <h2 className="text-3xl md:text-4xl font-mono uppercase mb-2 relative inline-block text-white">
           {title}
-          <span className="absolute -bottom-1 left-0 w-full h-1 bg-primary/20 rounded-full transform origin-left transition-transform duration-500" 
+          <span className="absolute -bottom-1 left-0 w-full h-1 bg-accent rounded-none transform origin-left transition-transform duration-500" 
             style={{ transform: isVisible ? 'scaleX(1)' : 'scaleX(0)' }}
           ></span>
         </h2>
-        {subtitle && <p className="text-lg text-muted-foreground">{subtitle}</p>}
+        {subtitle && <p className="text-lg text-muted-foreground font-normal">{subtitle}</p>}
       </div>
       {children}
     </section>
