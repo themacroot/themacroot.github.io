@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
 import { Terminal, User, Briefcase, Code, Shield, BookOpen, Award, Rocket } from 'lucide-react';
 import MatrixRain from './MatrixRain';
@@ -12,8 +12,6 @@ interface ResumeLayoutProps {
 const ResumeLayout: React.FC<ResumeLayoutProps> = ({ children, className }) => {
   const [activeSection, setActiveSection] = useState<string>('about');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const cursorRef = useRef<HTMLDivElement>(null);
   
   const scrollToSection = (id: string) => {
     setActiveSection(id);
@@ -32,28 +30,6 @@ const ResumeLayout: React.FC<ResumeLayoutProps> = ({ children, className }) => {
       });
     }
   };
-  
-  // Handle mouse movement for custom cursor
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
-      
-      if (cursorRef.current) {
-        // Add a slight delay for aesthetic effect
-        setTimeout(() => {
-          if (cursorRef.current) {
-            cursorRef.current.style.left = `${e.clientX}px`;
-            cursorRef.current.style.top = `${e.clientY}px`;
-          }
-        }, 50);
-      }
-    };
-    
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-    };
-  }, []);
   
   // Track initial section view and section changes via scroll
   useEffect(() => {
@@ -94,19 +70,28 @@ const ResumeLayout: React.FC<ResumeLayoutProps> = ({ children, className }) => {
 
   return (
     <div className={cn('min-h-screen bg-background noise-bg space-bg', className)}>
-      {/* Custom Cursor */}
-      <div ref={cursorRef} className="cursor-effect hidden md:block"></div>
-      
-      {/* Noise Overlay */}
-      <div className="noise-overlay"></div>
-      
-      {/* Background Animation */}
-      <MatrixRain />
+      {/* Starfield Background instead of Matrix */}
+      <div className="stars-container fixed inset-0 z-0 opacity-40 pointer-events-none">
+        {Array.from({ length: 200 }).map((_, i) => (
+          <div 
+            key={i} 
+            className="star"
+            style={{ 
+              top: `${Math.random() * 100}%`,
+              left: `${Math.random() * 100}%`,
+              width: `${Math.max(1, Math.random() * 3)}px`,
+              height: `${Math.max(1, Math.random() * 3)}px`,
+              animationDelay: `${Math.random() * 10}s`,
+              opacity: Math.random() * 0.8 + 0.2
+            }}
+          />
+        ))}
+      </div>
       
       {/* Mobile Menu Toggle */}
       <div className="md:hidden fixed top-4 left-4 z-50">
         <button 
-          className="bg-background p-4 rounded-none border-4 border-accent shadow-brutal micro-bounce"
+          className="bg-black/60 backdrop-blur-md p-2 rounded-full border border-accent shadow-glow"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         >
           <Terminal className="text-accent" />
@@ -114,92 +99,62 @@ const ResumeLayout: React.FC<ResumeLayoutProps> = ({ children, className }) => {
       </div>
 
       {/* Mobile Menu */}
-      <div className={`fixed inset-0 bg-background/95 z-40 transform transition-all duration-300 ${
+      <div className={`fixed inset-0 bg-black/90 z-40 transform transition-all duration-300 ${
         isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
       } md:hidden`}>
-        <div className="flex flex-col items-center justify-center h-full space-y-8 font-mono">
-          <button 
-            onClick={() => scrollToSection('about')} 
-            className={`text-accent text-2xl uppercase terminal-text border-4 border-accent p-4 micro-bounce ${activeSection === 'about' ? 'bg-accent text-background' : ''}`}
-          >
-            About
-          </button>
-          <button 
-            onClick={() => scrollToSection('experience')} 
-            className={`text-accent text-2xl uppercase terminal-text border-4 border-accent p-4 micro-bounce ${activeSection === 'experience' ? 'bg-accent text-background' : ''}`}
-          >
-            Experience
-          </button>
-          <button 
-            onClick={() => scrollToSection('projects')} 
-            className={`text-accent text-2xl uppercase terminal-text border-4 border-accent p-4 micro-bounce ${activeSection === 'projects' ? 'bg-accent text-background' : ''}`}
-          >
-            Projects
-          </button>
-          <button 
-            onClick={() => scrollToSection('skills')} 
-            className={`text-accent text-2xl uppercase terminal-text border-4 border-accent p-4 micro-bounce ${activeSection === 'skills' ? 'bg-accent text-background' : ''}`}
-          >
-            Skills
-          </button>
-          <button 
-            onClick={() => scrollToSection('education')} 
-            className={`text-accent text-2xl uppercase terminal-text border-4 border-accent p-4 micro-bounce ${activeSection === 'education' ? 'bg-accent text-background' : ''}`}
-          >
-            Education
-          </button>
-          <button 
-            onClick={() => scrollToSection('awards')} 
-            className={`text-accent text-2xl uppercase terminal-text border-4 border-accent p-4 micro-bounce ${activeSection === 'awards' ? 'bg-accent text-background' : ''}`}
-          >
-            Awards
-          </button>
+        <div className="flex flex-col items-center justify-center h-full space-y-6 font-mono">
+          <button onClick={() => scrollToSection('about')} className="text-accent hover:text-accent/80 text-xl uppercase terminal-text">About</button>
+          <button onClick={() => scrollToSection('experience')} className="text-accent hover:text-accent/80 text-xl uppercase terminal-text">Experience</button>
+          <button onClick={() => scrollToSection('projects')} className="text-accent hover:text-accent/80 text-xl uppercase terminal-text">Projects</button>
+          <button onClick={() => scrollToSection('skills')} className="text-accent hover:text-accent/80 text-xl uppercase terminal-text">Skills</button>
+          <button onClick={() => scrollToSection('education')} className="text-accent hover:text-accent/80 text-xl uppercase terminal-text">Education</button>
+          <button onClick={() => scrollToSection('awards')} className="text-accent hover:text-accent/80 text-xl uppercase terminal-text">Awards</button>
         </div>
       </div>
 
       {/* Floating Navigation Bar (Desktop) */}
-      <div className="hidden md:flex brutalist-nav px-0">
+      <div className="hidden md:flex fixed bottom-8 left-1/2 transform -translate-x-1/2 z-50 bg-black/60 backdrop-blur-md rounded-full shadow-glow px-4 py-2 space-x-2">
         <button 
           onClick={() => scrollToSection('about')} 
-          className={`brutalist-button ${activeSection === 'about' ? 'active' : ''}`}
+          className={`nav-button flex flex-col items-center justify-center px-4 py-2 rounded-full transition-all duration-300 ${activeSection === 'about' ? 'text-accent bg-black/30' : 'text-white/70 hover:text-accent'}`}
         >
-          <User size={20} className="mb-1" />
-          <span className="text-xs font-bold">About</span>
+          <User size={18} />
+          <span className="text-xs mt-1">About</span>
         </button>
         <button 
           onClick={() => scrollToSection('experience')} 
-          className={`brutalist-button ${activeSection === 'experience' ? 'active' : ''}`}
+          className={`nav-button flex flex-col items-center justify-center px-4 py-2 rounded-full transition-all duration-300 ${activeSection === 'experience' ? 'text-accent bg-black/30' : 'text-white/70 hover:text-accent'}`}
         >
-          <Briefcase size={20} className="mb-1" />
-          <span className="text-xs font-bold">Work</span>
+          <Briefcase size={18} />
+          <span className="text-xs mt-1">Work</span>
         </button>
         <button 
           onClick={() => scrollToSection('projects')} 
-          className={`brutalist-button ${activeSection === 'projects' ? 'active' : ''}`}
+          className={`nav-button flex flex-col items-center justify-center px-4 py-2 rounded-full transition-all duration-300 ${activeSection === 'projects' ? 'text-accent bg-black/30' : 'text-white/70 hover:text-accent'}`}
         >
-          <Code size={20} className="mb-1" />
-          <span className="text-xs font-bold">Projects</span>
+          <Code size={18} />
+          <span className="text-xs mt-1">Projects</span>
         </button>
         <button 
           onClick={() => scrollToSection('skills')} 
-          className={`brutalist-button ${activeSection === 'skills' ? 'active' : ''}`}
+          className={`nav-button flex flex-col items-center justify-center px-4 py-2 rounded-full transition-all duration-300 ${activeSection === 'skills' ? 'text-accent bg-black/30' : 'text-white/70 hover:text-accent'}`}
         >
-          <Shield size={20} className="mb-1" />
-          <span className="text-xs font-bold">Skills</span>
+          <Shield size={18} />
+          <span className="text-xs mt-1">Skills</span>
         </button>
         <button 
           onClick={() => scrollToSection('education')} 
-          className={`brutalist-button ${activeSection === 'education' ? 'active' : ''}`}
+          className={`nav-button flex flex-col items-center justify-center px-4 py-2 rounded-full transition-all duration-300 ${activeSection === 'education' ? 'text-accent bg-black/30' : 'text-white/70 hover:text-accent'}`}
         >
-          <BookOpen size={20} className="mb-1" />
-          <span className="text-xs font-bold">Education</span>
+          <BookOpen size={18} />
+          <span className="text-xs mt-1">Education</span>
         </button>
         <button 
           onClick={() => scrollToSection('awards')} 
-          className={`brutalist-button ${activeSection === 'awards' ? 'active' : ''}`}
+          className={`nav-button flex flex-col items-center justify-center px-4 py-2 rounded-full transition-all duration-300 ${activeSection === 'awards' ? 'text-accent bg-black/30' : 'text-white/70 hover:text-accent'}`}
         >
-          <Award size={20} className="mb-1" />
-          <span className="text-xs font-bold">Awards</span>
+          <Award size={18} />
+          <span className="text-xs mt-1">Awards</span>
         </button>
       </div>
       
