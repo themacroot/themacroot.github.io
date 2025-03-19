@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
-import { Terminal, User, Briefcase, Code, Shield, BookOpen, Award } from 'lucide-react';
+import { Terminal, User, Briefcase, Code, Shield, BookOpen, Award, Rocket } from 'lucide-react';
 import MatrixRain from './MatrixRain';
 
 interface ResumeLayoutProps {
@@ -69,17 +69,29 @@ const ResumeLayout: React.FC<ResumeLayoutProps> = ({ children, className }) => {
   }, [activeSection]);
 
   return (
-    <div className={cn('min-h-screen bg-background noise-bg crt-on', className)}>
-      {/* Matrix Rain Effect */}
-      <MatrixRain />
-      
-      {/* CRT Scanlines Effect */}
-      <div className="crt-lines"></div>
+    <div className={cn('min-h-screen bg-background noise-bg space-bg', className)}>
+      {/* Starfield Background instead of Matrix */}
+      <div className="stars-container fixed inset-0 z-0 opacity-40 pointer-events-none">
+        {Array.from({ length: 200 }).map((_, i) => (
+          <div 
+            key={i} 
+            className="star"
+            style={{ 
+              top: `${Math.random() * 100}%`,
+              left: `${Math.random() * 100}%`,
+              width: `${Math.max(1, Math.random() * 3)}px`,
+              height: `${Math.max(1, Math.random() * 3)}px`,
+              animationDelay: `${Math.random() * 10}s`,
+              opacity: Math.random() * 0.8 + 0.2
+            }}
+          />
+        ))}
+      </div>
       
       {/* Mobile Menu Toggle */}
       <div className="md:hidden fixed top-4 left-4 z-50">
         <button 
-          className="bg-background p-2 border border-accent"
+          className="bg-black/60 backdrop-blur-md p-2 rounded-full border border-accent shadow-glow"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         >
           <Terminal className="text-accent" />
@@ -100,29 +112,53 @@ const ResumeLayout: React.FC<ResumeLayoutProps> = ({ children, className }) => {
         </div>
       </div>
 
-      {/* Desktop Sidebar */}
-      <div className="sidebar hidden md:flex bg-background/80 backdrop-blur-md border-r border-accent/20">
-        <button onClick={() => scrollToSection('about')} className={`sidebar-icon ${activeSection === 'about' ? 'text-accent border-accent' : ''}`}>
-          <User size={20} />
+      {/* Floating Navigation Bar (Desktop) */}
+      <div className="hidden md:flex fixed bottom-8 left-1/2 transform -translate-x-1/2 z-50 bg-black/60 backdrop-blur-md rounded-full shadow-glow px-4 py-2 space-x-2">
+        <button 
+          onClick={() => scrollToSection('about')} 
+          className={`nav-button flex flex-col items-center justify-center px-4 py-2 rounded-full transition-all duration-300 ${activeSection === 'about' ? 'text-accent bg-black/30' : 'text-white/70 hover:text-accent'}`}
+        >
+          <User size={18} />
+          <span className="text-xs mt-1">About</span>
         </button>
-        <button onClick={() => scrollToSection('experience')} className={`sidebar-icon ${activeSection === 'experience' ? 'text-accent border-accent' : ''}`}>
-          <Briefcase size={20} />
+        <button 
+          onClick={() => scrollToSection('experience')} 
+          className={`nav-button flex flex-col items-center justify-center px-4 py-2 rounded-full transition-all duration-300 ${activeSection === 'experience' ? 'text-accent bg-black/30' : 'text-white/70 hover:text-accent'}`}
+        >
+          <Briefcase size={18} />
+          <span className="text-xs mt-1">Work</span>
         </button>
-        <button onClick={() => scrollToSection('projects')} className={`sidebar-icon ${activeSection === 'projects' ? 'text-accent border-accent' : ''}`}>
-          <Code size={20} />
+        <button 
+          onClick={() => scrollToSection('projects')} 
+          className={`nav-button flex flex-col items-center justify-center px-4 py-2 rounded-full transition-all duration-300 ${activeSection === 'projects' ? 'text-accent bg-black/30' : 'text-white/70 hover:text-accent'}`}
+        >
+          <Code size={18} />
+          <span className="text-xs mt-1">Projects</span>
         </button>
-        <button onClick={() => scrollToSection('skills')} className={`sidebar-icon ${activeSection === 'skills' ? 'text-accent border-accent' : ''}`}>
-          <Shield size={20} />
+        <button 
+          onClick={() => scrollToSection('skills')} 
+          className={`nav-button flex flex-col items-center justify-center px-4 py-2 rounded-full transition-all duration-300 ${activeSection === 'skills' ? 'text-accent bg-black/30' : 'text-white/70 hover:text-accent'}`}
+        >
+          <Shield size={18} />
+          <span className="text-xs mt-1">Skills</span>
         </button>
-        <button onClick={() => scrollToSection('education')} className={`sidebar-icon ${activeSection === 'education' ? 'text-accent border-accent' : ''}`}>
-          <BookOpen size={20} />
+        <button 
+          onClick={() => scrollToSection('education')} 
+          className={`nav-button flex flex-col items-center justify-center px-4 py-2 rounded-full transition-all duration-300 ${activeSection === 'education' ? 'text-accent bg-black/30' : 'text-white/70 hover:text-accent'}`}
+        >
+          <BookOpen size={18} />
+          <span className="text-xs mt-1">Education</span>
         </button>
-        <button onClick={() => scrollToSection('awards')} className={`sidebar-icon ${activeSection === 'awards' ? 'text-accent border-accent' : ''}`}>
-          <Award size={20} />
+        <button 
+          onClick={() => scrollToSection('awards')} 
+          className={`nav-button flex flex-col items-center justify-center px-4 py-2 rounded-full transition-all duration-300 ${activeSection === 'awards' ? 'text-accent bg-black/30' : 'text-white/70 hover:text-accent'}`}
+        >
+          <Award size={18} />
+          <span className="text-xs mt-1">Awards</span>
         </button>
       </div>
       
-      <div className="container mx-auto px-4 py-8 max-w-7xl relative">
+      <div className="container mx-auto px-4 py-8 max-w-7xl relative z-10">
         {children}
       </div>
     </div>

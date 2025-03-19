@@ -14,34 +14,60 @@ const MatrixRain: React.FC = () => {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
-    const fontSize = 14;
-    const columns = Math.floor(canvas.width / fontSize);
+    // Define stars
+    const stars = Array(200).fill(0).map(() => ({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      radius: Math.random() * 1.5 + 0.5,
+      speed: Math.random() * 0.05 + 0.02
+    }));
     
-    const drops: number[] = Array(columns).fill(1);
+    // Define nebula points
+    const nebulaPoints = Array(50).fill(0).map(() => ({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      radius: Math.random() * 30 + 10,
+      color: `rgba(${Math.floor(Math.random() * 100 + 150)}, ${Math.floor(Math.random() * 100)}, ${Math.floor(Math.random() * 150 + 100)}, 0.05)`
+    }));
     
-    const characters = "01";
-    
-    const matrix = () => {
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+    const draw = () => {
+      // Semi-transparent background for motion blur effect
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
       
-      ctx.fillStyle = '#00ff41';
-      ctx.font = `${fontSize}px monospace`;
+      // Draw nebula clouds
+      nebulaPoints.forEach(point => {
+        ctx.beginPath();
+        const gradient = ctx.createRadialGradient(
+          point.x, point.y, 0, 
+          point.x, point.y, point.radius
+        );
+        gradient.addColorStop(0, point.color);
+        gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
+        ctx.fillStyle = gradient;
+        ctx.arc(point.x, point.y, point.radius, 0, Math.PI * 2);
+        ctx.fill();
+      });
       
-      for (let i = 0; i < drops.length; i++) {
-        const text = characters[Math.floor(Math.random() * characters.length)];
+      // Draw and update stars
+      stars.forEach(star => {
+        ctx.beginPath();
+        ctx.fillStyle = `rgba(255, 255, 255, ${Math.random() * 0.3 + 0.7})`;
+        ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+        ctx.fill();
         
-        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+        // Move stars down
+        star.y += star.speed;
         
-        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-          drops[i] = 0;
+        // Reset stars when they go off screen
+        if (star.y > canvas.height) {
+          star.y = 0;
+          star.x = Math.random() * canvas.width;
         }
-        
-        drops[i]++;
-      }
+      });
     };
     
-    const interval = setInterval(matrix, 50);
+    const interval = setInterval(draw, 30);
     
     const handleResize = () => {
       canvas.width = window.innerWidth;
@@ -56,7 +82,7 @@ const MatrixRain: React.FC = () => {
     };
   }, []);
 
-  return <canvas ref={canvasRef} className="matrix-rain" />;
+  return <canvas ref={canvasRef} className="fixed inset-0 z-0 opacity-60 pointer-events-none" />;
 };
 
 export default MatrixRain;
