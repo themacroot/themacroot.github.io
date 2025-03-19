@@ -142,16 +142,16 @@ const TechOrbitSection = () => {
         <div className="relative z-10 text-center px-4 sm:px-6">
           <div className="glitch-container">
             <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-mono mb-4 sm:mb-6 glitch-text tracking-tight uppercase">
-              Tech <span className="text-accent">Explorer</span>
+              Bridging Code, <span className="text-accent">Data, and Strategy</span>
             </h1>
           </div>
           <p className="text-base sm:text-lg md:text-xl terminal-text max-w-xs sm:max-w-md md:max-w-3xl mx-auto">
-            <span className="terminal-prompt">Initiating neural interface</span>
+            <span className="terminal-prompt">Where logic meets creativity...</span>
             <span className="animate-blink">_</span>
           </p>
           <div className="mt-6 sm:mt-8 inline-block">
             <div className="scanner"></div>
-            <p className="text-xs sm:text-sm opacity-80 mt-4 terminal-text">Scroll down to explore the tech universe</p>
+            <p className="text-xs sm:text-sm opacity-80 mt-4 terminal-text">⚡ Decrypting expertise. Scroll to unlock...</p>
           </div>
         </div>
       </div>
