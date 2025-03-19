@@ -9,7 +9,6 @@ interface SectionProps {
   subtitle?: string;
   children: React.ReactNode;
   className?: string;
-  patternType?: 'grid' | 'binary' | 'dots' | 'none';
   parallaxSpeed?: number;
 }
 
@@ -19,7 +18,6 @@ const Section: React.FC<SectionProps> = ({
   subtitle, 
   children, 
   className,
-  patternType = 'none',
   parallaxSpeed = 0.1
 }) => {
   const [isVisible, setIsVisible] = useState(false);
@@ -45,19 +43,6 @@ const Section: React.FC<SectionProps> = ({
     };
   }, []);
 
-  const getPattern = () => {
-    switch (patternType) {
-      case 'grid':
-        return 'grid-pattern';
-      case 'binary':
-        return 'binary-bg';
-      case 'dots':
-        return 'dot-pattern';
-      default:
-        return '';
-    }
-  };
-
   const parallaxStyle = {
     transform: `translateY(${scrollY * parallaxSpeed}px)`
   };
@@ -67,24 +52,22 @@ const Section: React.FC<SectionProps> = ({
       id={id} 
       ref={sectionRef}
       className={cn(
-        'py-16 md:py-24 transition-all duration-1000 parallax-section',
+        'py-16 md:py-24 transition-all duration-1000',
         isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10',
-        getPattern(),
         className
       )}
     >
       <div 
-        className="parallax-bg" 
+        className="relative z-10 mb-10"
         style={parallaxStyle}
-      />
-      
-      <div className="relative z-10 mb-10">
-        <div className="terminal-box inline-block mb-4 px-4 py-2">
-          <span className="terminal-prompt typewriter">{title}</span>
-        </div>
+      >
+        <h2 className="text-3xl font-display font-medium mb-4 inline-block relative">
+          {title}
+          <div className="absolute -bottom-1 left-0 w-16 h-1 bg-primary/30"></div>
+        </h2>
         
         {subtitle && (
-          <p className="text-lg text-muted-foreground font-normal terminal-text">
+          <p className="text-lg text-muted-foreground">
             {subtitle}
           </p>
         )}
