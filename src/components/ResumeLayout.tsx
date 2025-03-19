@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
 import { Terminal, User, Briefcase, Code, Shield, BookOpen, Award } from 'lucide-react';
 import MatrixRain from './MatrixRain';
@@ -20,7 +20,53 @@ const ResumeLayout: React.FC<ResumeLayoutProps> = ({ children, className }) => {
       element.scrollIntoView({ behavior: 'smooth' });
     }
     setIsMobileMenuOpen(false);
+    
+    // Track section view with Google Analytics
+    if (window.gtag) {
+      window.gtag('event', 'section_view', {
+        'event_category': 'user_interaction',
+        'event_label': id,
+        'value': 1
+      });
+    }
   };
+  
+  // Track initial section view and section changes via scroll
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = ['about', 'experience', 'projects', 'skills', 'education', 'awards'];
+      
+      for (const section of sections) {
+        const element = document.getElementById(section);
+        if (element) {
+          const rect = element.getBoundingClientRect();
+          const isVisible = rect.top >= 0 && rect.top <= window.innerHeight * 0.5;
+          
+          if (isVisible && activeSection !== section) {
+            setActiveSection(section);
+            
+            // Track section view with Google Analytics
+            if (window.gtag) {
+              window.gtag('event', 'section_view', {
+                'event_category': 'user_interaction',
+                'event_label': section,
+                'value': 1
+              });
+            }
+            
+            break;
+          }
+        }
+      }
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Check initial section
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [activeSection]);
 
   return (
     <div className={cn('min-h-screen bg-background noise-bg crt-on', className)}>
@@ -82,5 +128,13 @@ const ResumeLayout: React.FC<ResumeLayoutProps> = ({ children, className }) => {
     </div>
   );
 };
+
+// Add TypeScript interface for window object to include gtag
+declare global {
+  interface Window {
+    gtag: (command: string, action: string, params: any) => void;
+    dataLayer: any[];
+  }
+}
 
 export default ResumeLayout;
