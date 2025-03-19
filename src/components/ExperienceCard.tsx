@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { cn } from '@/lib/utils';
 import { useParallax } from '@/hooks/useParallax';
 
@@ -22,40 +22,60 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({
   index,
   className,
 }) => {
+  const [isHovered, setIsHovered] = useState(false);
   const scrollY = useParallax();
   
   const parallaxStyle = {
     transform: `translateY(${scrollY * 0.05 * (index % 2 + 1)}px)`
   };
+  
+  // Random skew for brutalist effect
+  const randomSkew = (index % 2) * 0.5;
 
   return (
     <div 
       className={cn(
-        'terminal-box p-6 md:p-8 hover:brutal-shadow-green opacity-0 animate-fadeIn relative', 
+        'p-8 opacity-0 animate-fadeIn relative border-4 border-accent bg-secondary/50', 
+        isHovered ? 'shadow-brutal -translate-x-2 -translate-y-2' : '',
         className
       )}
       style={{ 
         ...parallaxStyle,
-        animationDelay: `${200 + index * 100}ms` 
+        animationDelay: `${200 + index * 100}ms`,
+        transform: `${parallaxStyle.transform} skew(${randomSkew}deg)`
       }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
     >
-      <div className="absolute top-0 right-0 p-1 text-xs opacity-50 terminal-text">
-        {`// EXP_${index + 1}`}
+      <div className="absolute top-0 right-0 bg-accent text-background py-1 px-4 font-bold">
+        {period}
       </div>
       
-      <div className="chip mb-2 font-mono">{period}</div>
-      <h3 className="text-xl font-medium mb-1 font-mono uppercase terminal-text">{title}</h3>
-      <div className="flex flex-wrap items-center gap-2 mb-4">
-        <span className="font-medium text-accent">{company}</span>
-        <span className="text-muted-foreground text-sm font-mono">| {location}</span>
+      <h3 className="text-2xl font-bold mb-4 font-mono uppercase text-accent">{title}</h3>
+      
+      <div className="flex flex-wrap items-center gap-4 mb-6">
+        <span className="font-bold text-foreground text-xl">{company}</span>
+        <span className="text-muted-foreground font-mono text-sm border-l-4 border-accent pl-4">{location}</span>
       </div>
-      <div className="text-muted-foreground space-y-2">
+      
+      <div className="text-foreground space-y-4">
         {description}
       </div>
       
-      <div className="mt-4 text-xs text-accent opacity-70">
-        {`/* ${Math.floor(Math.random() * 100) + 100}% efficiency */`}
-      </div>
+      {/* Decorative elements */}
+      <div 
+        className={cn(
+          "absolute -bottom-2 -left-2 w-6 h-6 bg-accent transition-opacity duration-300",
+          isHovered ? "opacity-100" : "opacity-0"
+        )}
+      />
+      
+      <div 
+        className={cn(
+          "absolute -top-2 -right-2 w-6 h-6 bg-accent transition-opacity duration-300",
+          isHovered ? "opacity-100" : "opacity-0"
+        )}
+      />
     </div>
   );
 };
