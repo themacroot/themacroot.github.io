@@ -11,7 +11,7 @@ interface ResumeHeaderProps {
 const ResumeHeader: React.FC<ResumeHeaderProps> = ({ className }) => {
   const scrollY = useParallax();
   const [typedText, setTypedText] = useState('');
-  const fullText = 'Assiduous computer engineer with 5+ years of experience in architecting, developing and maintaining customer facing applications in banking domain.';
+  const fullText = 'Dedicated Solution Architect with extensive experience in designing and implementing scalable enterprise-level applications for the banking sector, specializing in secure financial technology solutions and innovative digital transformation initiatives.';
   
   useEffect(() => {
     if (typedText.length < fullText.length) {
@@ -117,14 +117,14 @@ const ResumeHeader: React.FC<ResumeHeaderProps> = ({ className }) => {
               <div className="absolute inset-0 triangle-pattern opacity-20"></div>
               
               <div className="relative z-10">
-                <div className="terminal-text text-sm mb-4">{`sreekanth@system:~$ cat about.txt`}</div>
+                <div className="terminal-text text-sm mb-4">{`sreekanth@system:~$ cat profile.md`}</div>
                 
                 <div className="terminal-text text-sm mb-4">
                   <span className="text-accent">{typedText}</span>
                   <span className="terminal-cursor">|</span>
                 </div>
                 
-                <div className="terminal-text text-sm mb-4">{`sreekanth@system:~$ ls -la services/`}</div>
+                <div className="terminal-text text-sm mb-4">{`sreekanth@system:~$ ls -la expertise/`}</div>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8 relative">
                   {/* Tech particles */}
@@ -148,9 +148,9 @@ const ResumeHeader: React.FC<ResumeHeaderProps> = ({ className }) => {
                     <div className="text-accent mb-3">
                       <Terminal size={24} />
                     </div>
-                    <h3 className="text-accent text-lg font-medium mb-2 font-mono">Development</h3>
+                    <h3 className="text-accent text-lg font-medium mb-2 font-mono">Enterprise Architecture</h3>
                     <p className="text-accent/70 text-sm">
-                      Building custom solutions based on technical specifications for banking and fintech applications.
+                      Designing and implementing scalable, secure, and robust solutions for enterprise banking applications.
                     </p>
                   </div>
                   
@@ -159,9 +159,9 @@ const ResumeHeader: React.FC<ResumeHeaderProps> = ({ className }) => {
                     <div className="text-accent mb-3">
                       <Cpu size={24} />
                     </div>
-                    <h3 className="text-accent text-lg font-medium mb-2 font-mono">Security</h3>
+                    <h3 className="text-accent text-lg font-medium mb-2 font-mono">Security Engineering</h3>
                     <p className="text-accent/70 text-sm">
-                      Conducting security audits and implementing robust security measures for banking applications.
+                      Implementing industry-leading security protocols and conducting comprehensive audits for financial applications.
                     </p>
                   </div>
                 </div>

@@ -51,7 +51,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
       
       {isHovered && (
         <div className="mt-4 text-xs text-accent opacity-70">
-          {`/* ${Math.floor(Math.random() * 1000) + 1000} lines of code */`}
+          {`/* Project Completion: ${Math.floor(Math.random() * 5) + 95}% */`}
         </div>
       )}
     </div>
