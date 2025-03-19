@@ -1,7 +1,8 @@
 
 import React, { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
-import { User, Briefcase, Code, Shield, BookOpen, Award } from 'lucide-react';
+import { Terminal, User, Briefcase, Code, Shield, BookOpen, Award, Rocket } from 'lucide-react';
+import MatrixRain from './MatrixRain';
 
 interface ResumeLayoutProps {
   children: React.ReactNode;
@@ -11,9 +12,6 @@ interface ResumeLayoutProps {
 const ResumeLayout: React.FC<ResumeLayoutProps> = ({ children, className }) => {
   const [activeSection, setActiveSection] = useState<string>('about');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
-  const [scrollProgress, setScrollProgress] = useState<number>(0);
-  const [isScrollingUp, setIsScrollingUp] = useState<boolean>(false);
-  const [lastScrollY, setLastScrollY] = useState<number>(0);
   
   const scrollToSection = (id: string) => {
     setActiveSection(id);
@@ -33,19 +31,9 @@ const ResumeLayout: React.FC<ResumeLayoutProps> = ({ children, className }) => {
     }
   };
   
-  // Track scroll progress and direction
+  // Track initial section view and section changes via scroll
   useEffect(() => {
     const handleScroll = () => {
-      const scrollTop = window.scrollY;
-      const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      const scrollPercent = (scrollTop / docHeight) * 100;
-      setScrollProgress(scrollPercent);
-      
-      // Determine scroll direction
-      setIsScrollingUp(scrollTop < lastScrollY);
-      setLastScrollY(scrollTop);
-      
-      // Check which section is in view
       const sections = ['about', 'experience', 'projects', 'skills', 'education', 'awards'];
       
       for (const section of sections) {
@@ -78,94 +66,96 @@ const ResumeLayout: React.FC<ResumeLayoutProps> = ({ children, className }) => {
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, [activeSection, lastScrollY]);
+  }, [activeSection]);
 
   return (
-    <div className={cn('min-h-screen bg-background', className)}>
+    <div className={cn('min-h-screen bg-background noise-bg space-bg', className)}>
+      {/* Starfield Background instead of Matrix */}
+      <div className="stars-container fixed inset-0 z-0 opacity-40 pointer-events-none">
+        {Array.from({ length: 200 }).map((_, i) => (
+          <div 
+            key={i} 
+            className="star"
+            style={{ 
+              top: `${Math.random() * 100}%`,
+              left: `${Math.random() * 100}%`,
+              width: `${Math.max(1, Math.random() * 3)}px`,
+              height: `${Math.max(1, Math.random() * 3)}px`,
+              animationDelay: `${Math.random() * 10}s`,
+              opacity: Math.random() * 0.8 + 0.2
+            }}
+          />
+        ))}
+      </div>
+      
       {/* Mobile Menu Toggle */}
-      <div className="md:hidden fixed top-4 right-4 z-50">
+      <div className="md:hidden fixed top-4 left-4 z-50">
         <button 
-          className="bg-white/80 backdrop-blur-md p-2 rounded-full shadow-md"
+          className="bg-black/60 backdrop-blur-md p-2 rounded-full border border-accent shadow-glow"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         >
-          <div className="w-6 h-5 flex flex-col justify-between">
-            <span className={`block w-full h-0.5 bg-foreground transition-all duration-300 ${isMobileMenuOpen ? 'rotate-45 translate-y-2' : ''}`}></span>
-            <span className={`block w-full h-0.5 bg-foreground transition-all duration-300 ${isMobileMenuOpen ? 'opacity-0' : ''}`}></span>
-            <span className={`block w-full h-0.5 bg-foreground transition-all duration-300 ${isMobileMenuOpen ? '-rotate-45 -translate-y-2' : ''}`}></span>
-          </div>
+          <Terminal className="text-accent" />
         </button>
       </div>
 
       {/* Mobile Menu */}
-      <div className={`fixed inset-0 bg-white/95 z-40 transform transition-all duration-500 ${
-        isMobileMenuOpen ? 'translate-y-0' : '-translate-y-full'
+      <div className={`fixed inset-0 bg-black/90 z-40 transform transition-all duration-300 ${
+        isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
       } md:hidden`}>
-        <div className="flex flex-col items-center justify-center h-full space-y-8">
-          <button onClick={() => scrollToSection('about')} className={`nav-item text-lg ${activeSection === 'about' ? 'active' : ''}`}>About</button>
-          <button onClick={() => scrollToSection('experience')} className={`nav-item text-lg ${activeSection === 'experience' ? 'active' : ''}`}>Experience</button>
-          <button onClick={() => scrollToSection('projects')} className={`nav-item text-lg ${activeSection === 'projects' ? 'active' : ''}`}>Projects</button>
-          <button onClick={() => scrollToSection('skills')} className={`nav-item text-lg ${activeSection === 'skills' ? 'active' : ''}`}>Skills</button>
-          <button onClick={() => scrollToSection('education')} className={`nav-item text-lg ${activeSection === 'education' ? 'active' : ''}`}>Education</button>
-          <button onClick={() => scrollToSection('awards')} className={`nav-item text-lg ${activeSection === 'awards' ? 'active' : ''}`}>Awards</button>
+        <div className="flex flex-col items-center justify-center h-full space-y-6 font-mono">
+          <button onClick={() => scrollToSection('about')} className="text-accent hover:text-accent/80 text-xl uppercase terminal-text">About</button>
+          <button onClick={() => scrollToSection('experience')} className="text-accent hover:text-accent/80 text-xl uppercase terminal-text">Experience</button>
+          <button onClick={() => scrollToSection('projects')} className="text-accent hover:text-accent/80 text-xl uppercase terminal-text">Projects</button>
+          <button onClick={() => scrollToSection('skills')} className="text-accent hover:text-accent/80 text-xl uppercase terminal-text">Skills</button>
+          <button onClick={() => scrollToSection('education')} className="text-accent hover:text-accent/80 text-xl uppercase terminal-text">Education</button>
+          <button onClick={() => scrollToSection('awards')} className="text-accent hover:text-accent/80 text-xl uppercase terminal-text">Awards</button>
         </div>
       </div>
 
       {/* Floating Navigation Bar (Desktop) */}
-      <div 
-        className={`hidden md:flex floating-nav left-1/2 transform -translate-x-1/2 px-6 py-2 space-x-1 transition-all duration-500 ${
-          isScrollingUp ? 'top-4' : 'top-[-100px]'
-        }`}
-      >
+      <div className="hidden md:flex fixed bottom-8 left-1/2 transform -translate-x-1/2 z-50 bg-black/60 backdrop-blur-md rounded-full shadow-glow px-4 py-2 space-x-2">
         <button 
           onClick={() => scrollToSection('about')} 
-          className={`nav-item flex flex-col items-center ${activeSection === 'about' ? 'active' : ''}`}
+          className={`nav-button flex flex-col items-center justify-center px-4 py-2 rounded-full transition-all duration-300 ${activeSection === 'about' ? 'text-accent bg-black/30' : 'text-white/70 hover:text-accent'}`}
         >
           <User size={18} />
           <span className="text-xs mt-1">About</span>
         </button>
         <button 
           onClick={() => scrollToSection('experience')} 
-          className={`nav-item flex flex-col items-center ${activeSection === 'experience' ? 'active' : ''}`}
+          className={`nav-button flex flex-col items-center justify-center px-4 py-2 rounded-full transition-all duration-300 ${activeSection === 'experience' ? 'text-accent bg-black/30' : 'text-white/70 hover:text-accent'}`}
         >
           <Briefcase size={18} />
           <span className="text-xs mt-1">Work</span>
         </button>
         <button 
           onClick={() => scrollToSection('projects')} 
-          className={`nav-item flex flex-col items-center ${activeSection === 'projects' ? 'active' : ''}`}
+          className={`nav-button flex flex-col items-center justify-center px-4 py-2 rounded-full transition-all duration-300 ${activeSection === 'projects' ? 'text-accent bg-black/30' : 'text-white/70 hover:text-accent'}`}
         >
           <Code size={18} />
           <span className="text-xs mt-1">Projects</span>
         </button>
         <button 
           onClick={() => scrollToSection('skills')} 
-          className={`nav-item flex flex-col items-center ${activeSection === 'skills' ? 'active' : ''}`}
+          className={`nav-button flex flex-col items-center justify-center px-4 py-2 rounded-full transition-all duration-300 ${activeSection === 'skills' ? 'text-accent bg-black/30' : 'text-white/70 hover:text-accent'}`}
         >
           <Shield size={18} />
           <span className="text-xs mt-1">Skills</span>
         </button>
         <button 
           onClick={() => scrollToSection('education')} 
-          className={`nav-item flex flex-col items-center ${activeSection === 'education' ? 'active' : ''}`}
+          className={`nav-button flex flex-col items-center justify-center px-4 py-2 rounded-full transition-all duration-300 ${activeSection === 'education' ? 'text-accent bg-black/30' : 'text-white/70 hover:text-accent'}`}
         >
           <BookOpen size={18} />
           <span className="text-xs mt-1">Education</span>
         </button>
         <button 
           onClick={() => scrollToSection('awards')} 
-          className={`nav-item flex flex-col items-center ${activeSection === 'awards' ? 'active' : ''}`}
+          className={`nav-button flex flex-col items-center justify-center px-4 py-2 rounded-full transition-all duration-300 ${activeSection === 'awards' ? 'text-accent bg-black/30' : 'text-white/70 hover:text-accent'}`}
         >
           <Award size={18} />
           <span className="text-xs mt-1">Awards</span>
         </button>
-      </div>
-      
-      {/* Scroll Progress Indicator */}
-      <div className="fixed bottom-0 left-0 w-full h-1 bg-border z-50">
-        <div 
-          className="h-full bg-primary transition-all duration-300"
-          style={{ width: `${scrollProgress}%` }}
-        ></div>
       </div>
       
       <div className="container mx-auto px-4 py-8 max-w-7xl relative z-10">

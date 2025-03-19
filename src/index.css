@@ -1,5 +1,5 @@
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=VT323&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -7,34 +7,34 @@
 
 @layer base {
   :root {
-    --background: 220 33% 98%;
-    --foreground: 220 60% 10%;
+    --background: 120 5% 5%;
+    --foreground: 144 100% 50%;
     
-    --card: 0 0% 100%;
-    --card-foreground: 220 60% 10%;
+    --card: 120 5% 7%;
+    --card-foreground: 144 100% 50%;
     
-    --popover: 0 0% 100%;
-    --popover-foreground: 220 60% 10%;
+    --popover: 120 5% 7%;
+    --popover-foreground: 144 100% 50%;
     
-    --primary: 221 83% 53%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 144 100% 50%;
+    --primary-foreground: 120 5% 5%;
     
-    --secondary: 220 14% 96%;
-    --secondary-foreground: 220 60% 10%;
+    --secondary: 120 5% 10%;
+    --secondary-foreground: 144 100% 50%;
     
-    --muted: 220 14% 96%;
-    --muted-foreground: 220 10% 40%;
+    --muted: 120 5% 10%;
+    --muted-foreground: 144 80% 30%;
     
-    --accent: 221 83% 53%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 144 100% 50%;
+    --accent-foreground: 120 5% 5%;
     
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
     
-    --border: 220 13% 91%;
-    --input: 220 13% 91%;
-    --ring: 221 83% 53%;
-    --radius: 0.75rem;
+    --border: 144 100% 20%;
+    --input: 120 5% 10%;
+    --ring: 144 100% 50%;
+    --radius: 0rem;
   }
 }
 
@@ -44,31 +44,31 @@
   }
   
   html, body {
-    @apply antialiased scroll-smooth;
+    @apply antialiased;
   }
   
   body {
-    @apply bg-background text-foreground font-sans overflow-x-hidden;
+    @apply bg-background text-foreground font-mono overflow-x-hidden;
   }
   
   h1, h2, h3, h4, h5, h6 {
-    @apply font-display;
+    @apply font-mono;
   }
   
   .font-display {
-    @apply font-sans font-medium;
+    @apply font-mono uppercase tracking-widest;
   }
   
   .chip {
-    @apply inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-medium bg-primary/10 text-primary;
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-none text-xs font-medium bg-accent text-accent-foreground;
   }
   
   .glass-card {
-    @apply bg-white/90 backdrop-blur-md border border-border shadow-sm transition-all duration-300 hover:shadow-md rounded-xl;
+    @apply bg-secondary/80 backdrop-blur-md border-l-4 border-l-accent border-t-0 border-r-0 border-b-0 shadow-sm transition-all duration-300 hover:shadow-md;
   }
   
   .section-title {
-    @apply text-sm uppercase tracking-wider font-medium text-primary mb-4;
+    @apply text-sm uppercase tracking-wider font-medium text-accent mb-4 font-mono;
   }
   
   .animate-delay-100 {
@@ -100,11 +100,24 @@
   }
   
   .hover-scale:hover {
-    @apply transform translate-y-[-4px] shadow-lg;
+    @apply transform translate-x-2 shadow-lg;
+  }
+  
+  .dot-pattern {
+    background-image: radial-gradient(circle, rgba(0, 255, 65, 0.15) 1px, transparent 1px);
+    background-size: 20px 20px;
   }
   
   .scroll-smooth {
     scroll-behavior: smooth;
+  }
+
+  .sidebar {
+    @apply fixed left-0 top-0 h-screen w-20 flex flex-col items-center py-8 bg-black/30 backdrop-blur-md z-50 border-r border-accent/20;
+  }
+
+  .sidebar-icon {
+    @apply w-12 h-12 flex items-center justify-center text-accent/60 hover:text-accent hover:bg-black/20 transition-all duration-300 my-2 border border-transparent hover:border-accent/40;
   }
 
   .split-layout {
@@ -112,7 +125,7 @@
   }
 
   .left-panel {
-    @apply w-full md:w-1/3 bg-white p-6 md:p-12 flex flex-col justify-center items-center md:items-start relative overflow-hidden;
+    @apply w-full md:w-1/3 bg-black p-6 md:p-12 flex flex-col justify-center items-center md:items-start relative overflow-hidden;
   }
 
   .right-panel {
@@ -120,124 +133,46 @@
   }
 
   .service-box {
-    @apply p-6 bg-white hover:bg-secondary/50 transition-all duration-300 rounded-xl shadow-sm hover:shadow;
+    @apply p-6 bg-secondary/30 hover:bg-secondary/50 transition-all duration-300 border-l-4 border-l-accent border-t-0 border-r-0 border-b-0;
   }
-}
-
-/* Animations */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes slideIn {
-  from { opacity: 0; transform: translateX(-20px); }
-  to { opacity: 1; transform: translateX(0); }
 }
 
 @keyframes float {
   0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-5px); }
-}
-
-.animate-fadeIn {
-  animation: fadeIn 0.6s ease-out forwards;
-}
-
-.animate-slideIn {
-  animation: slideIn 0.5s ease-out forwards;
+  50% { transform: translateY(-15px); }
 }
 
 .animate-float {
-  animation: float 5s ease-in-out infinite;
+  animation: float 10s ease-in-out infinite;
 }
 
-/* Navigation */
-.floating-nav {
-  @apply fixed z-50 backdrop-blur-md bg-white/80 rounded-full shadow-lg transition-all duration-500;
+@keyframes typewriter {
+  from { width: 0; }
+  to { width: 100%; }
 }
 
-.nav-item {
-  @apply relative px-4 py-2 hover:text-primary transition-colors duration-300;
+.typewriter {
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 2px solid #00ff41;
+  animation: 
+    typewriter 4s steps(44) 1s 1 normal both,
+    terminal-cursor 1s infinite;
 }
 
-.nav-item::after {
-  content: '';
-  @apply absolute left-0 bottom-0 w-0 h-0.5 bg-primary transition-all duration-300;
+.terminal-prompt::before {
+  content: '> ';
+  color: #00ff41;
 }
 
-.nav-item:hover::after {
-  @apply w-full;
-}
-
-.nav-item.active {
-  @apply text-primary;
-}
-
-.nav-item.active::after {
-  @apply w-full;
-}
-
-/* Experience and Project Cards */
-.experience-card {
-  @apply p-6 bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300;
-}
-
-.project-card {
-  @apply bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden;
-}
-
-.project-card-image {
-  @apply w-full h-48 object-cover transition-transform duration-500;
-}
-
-.project-card:hover .project-card-image {
-  @apply transform scale-105;
-}
-
-/* Button Styles */
-.btn-primary {
-  @apply px-4 py-2 bg-primary text-white rounded-md hover:bg-primary/90 transition-colors duration-300;
-}
-
-.btn-outline {
-  @apply px-4 py-2 border border-primary text-primary rounded-md hover:bg-primary/10 transition-colors duration-300;
-}
-
-/* Micro-interactions */
-.hover-lift {
-  @apply transition-all duration-300;
-}
-
-.hover-lift:hover {
-  @apply transform -translate-y-1 shadow-md;
-}
-
-.hover-expand {
-  @apply transition-all duration-300;
-}
-
-.hover-expand:hover {
-  @apply transform scale-[1.02];
-}
-
-.hover-bright {
-  @apply transition-all duration-300 filter;
-}
-
-.hover-bright:hover {
-  @apply brightness-110;
-}
-
-.link-underline {
-  @apply relative;
-}
-
-.link-underline::after {
-  content: '';
-  @apply absolute left-0 bottom-0 w-0 h-0.5 bg-primary transition-all duration-300;
-}
-
-.link-underline:hover::after {
-  @apply w-full;
+.binary-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%2300ff41' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+  opacity: 0.3;
+  pointer-events: none;
+  z-index: -1;
 }

@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import { cn } from '@/lib/utils';
 import { useParallax } from '@/hooks/useParallax';
-import { ExternalLink } from 'lucide-react';
 
 interface ProjectCardProps {
   title: string;
@@ -27,7 +26,8 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   return (
     <div 
       className={cn(
-        'project-card p-6 opacity-0 animate-fadeIn hover-lift', 
+        'terminal-box opacity-0 animate-fadeIn transition-all duration-300 relative', 
+        isHovered ? 'border-accent -translate-x-2 brutal-shadow-green' : 'border-accent/50',
         className
       )}
       style={{ 
@@ -37,25 +37,22 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <div className="flex justify-between items-start mb-4">
-        <h3 className="text-xl font-medium text-foreground">
-          {title}
-        </h3>
-        
-        <div className={cn(
-          "transition-opacity duration-300",
-          isHovered ? "opacity-100" : "opacity-0"
-        )}>
-          <ExternalLink size={18} className="text-primary" />
-        </div>
+      <div className="absolute top-0 right-0 p-1 text-xs opacity-50 terminal-text">
+        {`// PROJECT_${index + 1}`}
       </div>
+      
+      <h3 className="text-xl font-medium mb-4 text-accent font-mono uppercase">
+        <span className="terminal-prompt">{title}</span>
+      </h3>
       
       <div className="text-muted-foreground space-y-2">
         {description}
       </div>
       
       {isHovered && (
-        <div className="mt-4 h-1 w-16 bg-primary/40 rounded-full"></div>
+        <div className="mt-4 text-xs text-accent opacity-70">
+          {`/* ${Math.floor(Math.random() * 1000) + 1000} lines of code */`}
+        </div>
       )}
     </div>
   );
