@@ -112,21 +112,21 @@
   
   /* Terminal styles for project/experience cards */
   .terminal-box {
-    @apply p-5 border-2 bg-secondary/50 border-accent/20 rounded-lg transition-all duration-300;
+    @apply p-5 border-2 bg-blue-50 border-blue-200 rounded-lg transition-all duration-300;
   }
   
   .terminal-text {
-    @apply font-mono text-primary;
+    @apply font-mono text-blue-700;
   }
   
   .terminal-prompt::before {
     content: "> ";
-    @apply text-accent font-mono;
+    @apply text-blue-600 font-mono;
   }
   
   /* Brutal shadow styles */
   .brutal-shadow-green {
-    box-shadow: 4px 4px 0 0 hsl(var(--primary));
+    box-shadow: 4px 4px 0 0 #4285F4;
   }
 }
 
@@ -140,7 +140,7 @@
 
 .star {
   position: absolute;
-  background-color: hsl(var(--primary));
+  background-color: #4285F4;
   border-radius: 50%;
   opacity: 0.3;
   animation: twinkle 5s infinite;
