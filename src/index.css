@@ -7,33 +7,33 @@
 
 @layer base {
   :root {
-    --background: 210 50% 98%;
-    --foreground: 215 25% 25%;
+    --background: 240 30% 25%;
+    --foreground: 240 15% 90%;
     
-    --card: 0 0% 100%;
-    --card-foreground: 215 25% 25%;
+    --card: 240 30% 30%;
+    --card-foreground: 240 15% 95%;
     
-    --popover: 0 0% 100%;
-    --popover-foreground: 215 25% 25%;
+    --popover: 240 30% 30%;
+    --popover-foreground: 240 15% 95%;
     
-    --primary: 215 80% 45%;
-    --primary-foreground: 0 0% 100%;
+    --primary: 260 50% 65%;
+    --primary-foreground: 240 15% 95%;
     
-    --secondary: 215 30% 95%;
-    --secondary-foreground: 215 70% 40%;
+    --secondary: 260 30% 20%;
+    --secondary-foreground: 260 60% 80%;
     
-    --muted: 215 30% 95%;
-    --muted-foreground: 215 25% 45%;
+    --muted: 260 20% 40%;
+    --muted-foreground: 240 15% 85%;
     
-    --accent: 215 80% 45%;
-    --accent-foreground: 0 0% 100%;
+    --accent: 280 50% 65%;
+    --accent-foreground: 240 15% 95%;
     
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
     
-    --border: 215 25% 88%;
-    --input: 215 25% 88%;
-    --ring: 215 70% 50%;
+    --border: 260 30% 50%;
+    --input: 260 30% 50%;
+    --ring: 260 50% 65%;
     --radius: 0.5rem;
   }
 }
@@ -48,7 +48,7 @@
   }
   
   body {
-    @apply bg-background text-foreground font-sans overflow-x-hidden;
+    @apply bg-gradient-to-br from-[#3B4875] to-[#7A5C99] text-foreground font-sans overflow-x-hidden min-h-screen;
   }
   
   h1, h2, h3, h4, h5, h6 {
@@ -61,11 +61,11 @@
   }
   
   .glass-card {
-    @apply bg-white/80 backdrop-blur-sm shadow-sm border border-border/60 rounded-lg transition-all duration-300 hover:shadow-md;
+    @apply bg-white/10 backdrop-blur-sm shadow-sm border border-white/20 rounded-lg transition-all duration-300 hover:shadow-md;
   }
   
   .section-title {
-    @apply text-base font-medium text-primary mb-4 tracking-wide;
+    @apply text-base font-medium text-primary-foreground mb-4 tracking-wide;
   }
   
   /* Animation delays */
@@ -87,11 +87,11 @@
   
   /* Layout elements */
   .sidebar {
-    @apply fixed left-0 top-0 h-screen w-20 flex flex-col items-center py-8 bg-white shadow-md z-50;
+    @apply fixed left-0 top-0 h-screen w-20 flex flex-col items-center py-8 bg-black/20 backdrop-blur-sm shadow-md z-50;
   }
 
   .sidebar-icon {
-    @apply w-10 h-10 flex items-center justify-center text-muted-foreground hover:text-primary hover:bg-secondary rounded-md transition-all duration-300 my-2;
+    @apply w-10 h-10 flex items-center justify-center text-muted-foreground hover:text-primary hover:bg-white/10 rounded-md transition-all duration-300 my-2;
   }
 
   .split-layout {
@@ -99,34 +99,34 @@
   }
 
   .left-panel {
-    @apply w-full md:w-1/3 bg-secondary p-6 md:p-12 flex flex-col justify-center items-center md:items-start relative;
+    @apply w-full md:w-1/3 bg-black/20 backdrop-blur-sm p-6 md:p-12 flex flex-col justify-center items-center md:items-start relative;
   }
 
   .right-panel {
-    @apply w-full md:w-2/3 bg-background p-6 md:p-12 overflow-y-auto;
+    @apply w-full md:w-2/3 bg-black/10 p-6 md:p-12 overflow-y-auto;
   }
 
   .service-box {
-    @apply p-6 glass-card hover:bg-white/90 transition-all duration-300;
+    @apply p-6 glass-card hover:bg-white/20 transition-all duration-300;
   }
   
   /* Terminal styles for project/experience cards */
   .terminal-box {
-    @apply p-5 border-2 bg-blue-50 border-blue-200 rounded-lg transition-all duration-300;
+    @apply p-5 border-2 bg-[#3B4875]/30 border-[#A79AC4] rounded-lg transition-all duration-300;
   }
   
   .terminal-text {
-    @apply font-mono text-blue-700;
+    @apply font-mono text-[#E0D8FF];
   }
   
   .terminal-prompt::before {
     content: "> ";
-    @apply text-blue-600 font-mono;
+    @apply text-[#C8B6F2] font-mono;
   }
   
   /* Brutal shadow styles */
   .brutal-shadow-green {
-    box-shadow: 4px 4px 0 0 #4285F4;
+    box-shadow: 4px 4px 0 0 #9D84C8;
   }
 }
 
@@ -140,7 +140,7 @@
 
 .star {
   position: absolute;
-  background-color: #4285F4;
+  background-color: #C8B6F2;
   border-radius: 50%;
   opacity: 0.3;
   animation: twinkle 5s infinite;

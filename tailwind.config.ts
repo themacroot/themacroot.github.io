@@ -52,6 +52,16 @@ export default {
 				card: {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
+				},
+				purple: {
+					light: '#A79AC4',
+					DEFAULT: '#7A5C99',
+					dark: '#5D4575'
+				},
+				blue: {
+					light: '#5D6899',
+					DEFAULT: '#3B4875',
+					dark: '#2A355A'
 				}
 			},
 			fontFamily: {
@@ -63,6 +73,10 @@ export default {
 				lg: 'var(--radius)',
 				md: 'calc(var(--radius) - 2px)',
 				sm: 'calc(var(--radius) - 4px)'
+			},
+			backgroundImage: {
+				'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+				'purple-blue-gradient': 'linear-gradient(to right bottom, #3B4875, #7A5C99)',
 			},
 			keyframes: {
 				'accordion-down': {
@@ -121,9 +135,6 @@ export default {
 				tilt: 'tilt 10s ease-in-out infinite',
 				blob: 'blob 8s ease-in-out infinite'
 			},
-			backgroundImage: {
-				'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-			}
 		}
 	},
 	plugins: [require("tailwindcss-animate")],
