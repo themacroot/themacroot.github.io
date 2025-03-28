@@ -7,33 +7,33 @@
 
 @layer base {
   :root {
-    --background: 224 71% 98%;
-    --foreground: 220 20% 20%;
+    --background: 210 50% 98%;
+    --foreground: 215 25% 25%;
     
     --card: 0 0% 100%;
-    --card-foreground: 220 20% 20%;
+    --card-foreground: 215 25% 25%;
     
     --popover: 0 0% 100%;
-    --popover-foreground: 220 20% 20%;
+    --popover-foreground: 215 25% 25%;
     
-    --primary: 220 70% 50%;
+    --primary: 215 80% 45%;
     --primary-foreground: 0 0% 100%;
     
-    --secondary: 220 20% 96%;
-    --secondary-foreground: 220 70% 40%;
+    --secondary: 215 30% 95%;
+    --secondary-foreground: 215 70% 40%;
     
-    --muted: 220 20% 96%;
-    --muted-foreground: 220 20% 50%;
+    --muted: 215 30% 95%;
+    --muted-foreground: 215 25% 45%;
     
-    --accent: 220 70% 50%;
+    --accent: 215 80% 45%;
     --accent-foreground: 0 0% 100%;
     
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
     
-    --border: 220 20% 86%;
-    --input: 220 20% 86%;
-    --ring: 220 70% 50%;
+    --border: 215 25% 88%;
+    --input: 215 25% 88%;
+    --ring: 215 70% 50%;
     --radius: 0.5rem;
   }
 }
@@ -108,6 +108,25 @@
 
   .service-box {
     @apply p-6 glass-card hover:bg-white/90 transition-all duration-300;
+  }
+  
+  /* Terminal styles for project/experience cards */
+  .terminal-box {
+    @apply p-5 border-2 bg-secondary/50 border-accent/20 rounded-lg transition-all duration-300;
+  }
+  
+  .terminal-text {
+    @apply font-mono text-primary;
+  }
+  
+  .terminal-prompt::before {
+    content: "> ";
+    @apply text-accent font-mono;
+  }
+  
+  /* Brutal shadow styles */
+  .brutal-shadow-green {
+    box-shadow: 4px 4px 0 0 hsl(var(--primary));
   }
 }
 
