@@ -55,8 +55,8 @@ export default {
 				}
 			},
 			fontFamily: {
-				sans: ['JetBrains Mono', 'monospace'],
-				display: ['VT323', 'monospace'],
+				sans: ['Inter', 'system-ui', 'sans-serif'],
+				display: ['Inter', 'system-ui', 'sans-serif'],
 				mono: ['JetBrains Mono', 'monospace'],
 			},
 			borderRadius: {

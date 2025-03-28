@@ -1,8 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
-import { Terminal, User, Briefcase, Code, Shield, BookOpen, Award, Rocket } from 'lucide-react';
-import MatrixRain from './MatrixRain';
+import { User, Briefcase, Code, Shield, BookOpen, Award, ChevronUp } from 'lucide-react';
 
 interface ResumeLayoutProps {
   children: React.ReactNode;
@@ -12,6 +11,8 @@ interface ResumeLayoutProps {
 const ResumeLayout: React.FC<ResumeLayoutProps> = ({ children, className }) => {
   const [activeSection, setActiveSection] = useState<string>('about');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
+  const [showScrollTop, setShowScrollTop] = useState<boolean>(false);
+  const [scrollProgress, setScrollProgress] = useState<number>(0);
   
   const scrollToSection = (id: string) => {
     setActiveSection(id);
@@ -31,11 +32,16 @@ const ResumeLayout: React.FC<ResumeLayoutProps> = ({ children, className }) => {
     }
   };
   
-  // Track initial section view and section changes via scroll
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+  
+  // Track scroll position and update active section
   useEffect(() => {
     const handleScroll = () => {
       const sections = ['about', 'experience', 'projects', 'skills', 'education', 'awards'];
       
+      // Update active section
       for (const section of sections) {
         const element = document.getElementById(section);
         if (element) {
@@ -58,6 +64,15 @@ const ResumeLayout: React.FC<ResumeLayoutProps> = ({ children, className }) => {
           }
         }
       }
+      
+      // Update scroll progress
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const progress = (scrollTop / scrollHeight) * 100;
+      setScrollProgress(progress);
+      
+      // Show/hide scroll to top button
+      setShowScrollTop(scrollTop > 500);
     };
     
     window.addEventListener('scroll', handleScroll);
@@ -69,96 +84,106 @@ const ResumeLayout: React.FC<ResumeLayoutProps> = ({ children, className }) => {
   }, [activeSection]);
 
   return (
-    <div className={cn('min-h-screen bg-background noise-bg space-bg', className)}>
-      {/* Starfield Background instead of Matrix */}
-      <div className="stars-container fixed inset-0 z-0 opacity-40 pointer-events-none">
-        {Array.from({ length: 200 }).map((_, i) => (
-          <div 
-            key={i} 
-            className="star"
-            style={{ 
-              top: `${Math.random() * 100}%`,
-              left: `${Math.random() * 100}%`,
-              width: `${Math.max(1, Math.random() * 3)}px`,
-              height: `${Math.max(1, Math.random() * 3)}px`,
-              animationDelay: `${Math.random() * 10}s`,
-              opacity: Math.random() * 0.8 + 0.2
-            }}
-          />
-        ))}
+    <div className={cn('min-h-screen bg-background overflow-x-hidden', className)}>
+      {/* Progress bar */}
+      <div className="fixed top-0 left-0 w-full h-1 bg-muted z-50">
+        <div 
+          className="h-full bg-primary transition-all duration-150 ease-out"
+          style={{ width: `${scrollProgress}%` }}
+        />
       </div>
       
       {/* Mobile Menu Toggle */}
-      <div className="md:hidden fixed top-4 left-4 z-50">
+      <div className="md:hidden fixed top-4 right-4 z-50">
         <button 
-          className="bg-black/60 backdrop-blur-md p-2 rounded-full border border-accent shadow-glow"
+          className="bg-white p-2 rounded-full shadow-md border border-border"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          aria-label="Toggle menu"
         >
-          <Terminal className="text-accent" />
+          <div className={`w-5 h-0.5 bg-foreground transition-all duration-300 ${isMobileMenuOpen ? 'rotate-45 translate-y-1' : ''}`}></div>
+          <div className={`w-5 h-0.5 bg-foreground my-1 transition-all duration-300 ${isMobileMenuOpen ? 'opacity-0' : ''}`}></div>
+          <div className={`w-5 h-0.5 bg-foreground transition-all duration-300 ${isMobileMenuOpen ? '-rotate-45 -translate-y-1' : ''}`}></div>
         </button>
       </div>
 
       {/* Mobile Menu */}
-      <div className={`fixed inset-0 bg-black/90 z-40 transform transition-all duration-300 ${
-        isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
-      } md:hidden`}>
-        <div className="flex flex-col items-center justify-center h-full space-y-6 font-mono">
-          <button onClick={() => scrollToSection('about')} className="text-accent hover:text-accent/80 text-xl uppercase terminal-text">About</button>
-          <button onClick={() => scrollToSection('experience')} className="text-accent hover:text-accent/80 text-xl uppercase terminal-text">Experience</button>
-          <button onClick={() => scrollToSection('projects')} className="text-accent hover:text-accent/80 text-xl uppercase terminal-text">Projects</button>
-          <button onClick={() => scrollToSection('skills')} className="text-accent hover:text-accent/80 text-xl uppercase terminal-text">Skills</button>
-          <button onClick={() => scrollToSection('education')} className="text-accent hover:text-accent/80 text-xl uppercase terminal-text">Education</button>
-          <button onClick={() => scrollToSection('awards')} className="text-accent hover:text-accent/80 text-xl uppercase terminal-text">Awards</button>
+      <div className={`fixed inset-0 bg-white/95 z-40 transform transition-all duration-300 ${
+        isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
+      } md:hidden flex flex-col items-center justify-center`}>
+        <div className="flex flex-col items-center justify-center h-full space-y-6">
+          <button onClick={() => scrollToSection('about')} className="text-foreground hover:text-primary text-xl transition-colors">About</button>
+          <button onClick={() => scrollToSection('experience')} className="text-foreground hover:text-primary text-xl transition-colors">Experience</button>
+          <button onClick={() => scrollToSection('projects')} className="text-foreground hover:text-primary text-xl transition-colors">Projects</button>
+          <button onClick={() => scrollToSection('skills')} className="text-foreground hover:text-primary text-xl transition-colors">Skills</button>
+          <button onClick={() => scrollToSection('education')} className="text-foreground hover:text-primary text-xl transition-colors">Education</button>
+          <button onClick={() => scrollToSection('awards')} className="text-foreground hover:text-primary text-xl transition-colors">Awards</button>
         </div>
       </div>
 
       {/* Floating Navigation Bar (Desktop) */}
-      <div className="hidden md:flex fixed bottom-8 left-1/2 transform -translate-x-1/2 z-50 bg-black/60 backdrop-blur-md rounded-full shadow-glow px-4 py-2 space-x-2">
+      <div className="hidden md:flex fixed bottom-8 left-1/2 transform -translate-x-1/2 z-50 bg-white/90 backdrop-blur-sm rounded-full shadow-md px-4 py-2 space-x-2">
         <button 
           onClick={() => scrollToSection('about')} 
-          className={`nav-button flex flex-col items-center justify-center px-4 py-2 rounded-full transition-all duration-300 ${activeSection === 'about' ? 'text-accent bg-black/30' : 'text-white/70 hover:text-accent'}`}
+          className={`flex flex-col items-center justify-center px-4 py-2 rounded-full transition-all duration-300 ${activeSection === 'about' ? 'text-primary bg-secondary' : 'text-muted-foreground hover:text-primary'}`}
+          aria-label="About section"
         >
           <User size={18} />
           <span className="text-xs mt-1">About</span>
         </button>
         <button 
           onClick={() => scrollToSection('experience')} 
-          className={`nav-button flex flex-col items-center justify-center px-4 py-2 rounded-full transition-all duration-300 ${activeSection === 'experience' ? 'text-accent bg-black/30' : 'text-white/70 hover:text-accent'}`}
+          className={`flex flex-col items-center justify-center px-4 py-2 rounded-full transition-all duration-300 ${activeSection === 'experience' ? 'text-primary bg-secondary' : 'text-muted-foreground hover:text-primary'}`}
+          aria-label="Experience section"
         >
           <Briefcase size={18} />
           <span className="text-xs mt-1">Work</span>
         </button>
         <button 
           onClick={() => scrollToSection('projects')} 
-          className={`nav-button flex flex-col items-center justify-center px-4 py-2 rounded-full transition-all duration-300 ${activeSection === 'projects' ? 'text-accent bg-black/30' : 'text-white/70 hover:text-accent'}`}
+          className={`flex flex-col items-center justify-center px-4 py-2 rounded-full transition-all duration-300 ${activeSection === 'projects' ? 'text-primary bg-secondary' : 'text-muted-foreground hover:text-primary'}`}
+          aria-label="Projects section"
         >
           <Code size={18} />
           <span className="text-xs mt-1">Projects</span>
         </button>
         <button 
           onClick={() => scrollToSection('skills')} 
-          className={`nav-button flex flex-col items-center justify-center px-4 py-2 rounded-full transition-all duration-300 ${activeSection === 'skills' ? 'text-accent bg-black/30' : 'text-white/70 hover:text-accent'}`}
+          className={`flex flex-col items-center justify-center px-4 py-2 rounded-full transition-all duration-300 ${activeSection === 'skills' ? 'text-primary bg-secondary' : 'text-muted-foreground hover:text-primary'}`}
+          aria-label="Skills section"
         >
           <Shield size={18} />
           <span className="text-xs mt-1">Skills</span>
         </button>
         <button 
           onClick={() => scrollToSection('education')} 
-          className={`nav-button flex flex-col items-center justify-center px-4 py-2 rounded-full transition-all duration-300 ${activeSection === 'education' ? 'text-accent bg-black/30' : 'text-white/70 hover:text-accent'}`}
+          className={`flex flex-col items-center justify-center px-4 py-2 rounded-full transition-all duration-300 ${activeSection === 'education' ? 'text-primary bg-secondary' : 'text-muted-foreground hover:text-primary'}`}
+          aria-label="Education section"
         >
           <BookOpen size={18} />
           <span className="text-xs mt-1">Education</span>
         </button>
         <button 
           onClick={() => scrollToSection('awards')} 
-          className={`nav-button flex flex-col items-center justify-center px-4 py-2 rounded-full transition-all duration-300 ${activeSection === 'awards' ? 'text-accent bg-black/30' : 'text-white/70 hover:text-accent'}`}
+          className={`flex flex-col items-center justify-center px-4 py-2 rounded-full transition-all duration-300 ${activeSection === 'awards' ? 'text-primary bg-secondary' : 'text-muted-foreground hover:text-primary'}`}
+          aria-label="Awards section"
         >
           <Award size={18} />
           <span className="text-xs mt-1">Awards</span>
         </button>
       </div>
       
-      <div className="container mx-auto px-4 py-8 max-w-7xl relative z-10">
+      {/* Scroll to top button */}
+      {showScrollTop && (
+        <button 
+          onClick={scrollToTop} 
+          className="fixed bottom-8 right-8 z-50 bg-primary text-primary-foreground rounded-full p-3 shadow-lg transition-all duration-300 opacity-80 hover:opacity-100"
+          aria-label="Scroll to top"
+        >
+          <ChevronUp size={20} />
+        </button>
+      )}
+      
+      <div className="container mx-auto px-4 py-8 max-w-6xl relative z-10">
         {children}
       </div>
     </div>
