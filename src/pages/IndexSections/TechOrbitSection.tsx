@@ -53,7 +53,7 @@ const TechOrbitSection = () => {
     >
       {/* Subtle background pattern */}
       <div className="absolute inset-0 opacity-5">
-        <div className="w-full h-full bg-[url('data:image/svg+xml,%3Csvg width=\"20\" height=\"20\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cpath d=\"M0 0h20v20H0z\" fill=\"%23000\" fill-opacity=\".05\"/%3E%3C/svg%3E')] bg-[length:20px_20px]"></div>
+        <div className="w-full h-full bg-[url('data:image/svg+xml,%3Csvg width=\'20\' height=\'20\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M0 0h20v20H0z\' fill=\'%23000\' fill-opacity=\'.05\'/%3E%3C/svg%3E')] bg-[length:20px_20px]"></div>
       </div>
       
       {/* Floating Tech Elements */}
