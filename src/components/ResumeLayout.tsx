@@ -84,7 +84,7 @@ const ResumeLayout: React.FC<ResumeLayoutProps> = ({ children, className }) => {
   }, [activeSection]);
 
   return (
-    <div className={cn('min-h-screen w-screen overflow-x-hidden bg-background', className)}>
+    <div className={cn('min-h-screen bg-background overflow-x-hidden', className)}>
       {/* Progress bar */}
       <div className="fixed top-0 left-0 w-full h-1 bg-muted z-50">
         <div 
@@ -183,7 +183,7 @@ const ResumeLayout: React.FC<ResumeLayoutProps> = ({ children, className }) => {
         </button>
       )}
       
-      <div className="w-full px-4 py-8 max-w-7xl mx-auto relative z-10">
+      <div className="container mx-auto px-4 py-8 max-w-6xl relative z-10">
         {children}
       </div>
     </div>
